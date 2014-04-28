@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>treehugger.js demo</title>
+    <script data-main="lib/demo" src="lib/require.js"></script>
+    <link rel="stylesheet" href="examples/style.css" type="text/css" />
+  </head>
+  <body>
+  <h1>Treehugger.js playground</h1>
+    <table>
+    <tr>
+      <th>Javascript</th>
+      <th>AST</th>
+    </tr>
+    <tr>
+      <td><textarea id="code" rows="15" cols="42">var a = 10, b;
+console.log(a, b, c);</textarea></td>
+      <td><textarea id="ast" rows="15" cols="42" readonly style="background-color: #eee;"></textarea></td>
+    </tr>
+    <tr>
+      <th>Analysis code <button id="runbutton">Run</button></th>
+      <th>Output</th>
+    </tr>
+    <tr>
+      <td><textarea id="analysis" rows="15" cols="42">var declared = {console: true};
+
+ast.traverseTopDown(
+   'VarDecl(x)', function(b) {
+      declared[b.x.value] = true;
+   },
+   'VarDeclInit(x, _)', function(b) {
+      declared[b.x.value] = true;
+   },
+   'Var(x)', function(b) {
+      if(!declared[b.x.value])
+        log("Variable " + b.x.value + " is not declared.");
+   }
+);
+</textarea></td>
+      <td><textarea id="output" rows="15" cols="42" readonly style="background-color: #eee;"></textarea></td>
+    </tr>
+    </table>
+  </body>
+</html>
